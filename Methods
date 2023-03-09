@@ -1,17 +1,18 @@
 local request = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
 if request then
-  return {
-    send = function(url, information)
-      HttpRequest{
-       Url = URL,
-       Method = "POST",
-       Headers = {
-         ["Content-Type"] = "application/json"
-       },
-       Body = game:GetService("HttpService"):JSONEncode(information)
-      }
-  }
- else 
-  warn("Webhook requests unvailable") 
-  return nil
- end
+    return {
+       send = function(url,information)
+          request{
+              Url = url,
+              Method = "POST",
+              Headers = {
+                  ["Content-Type"]="application/json"
+              },
+            Body = game:GetService("HttpService"):JSONEncode(information)
+          } 
+       end
+    }
+else
+    warn("Webhook requests unavailable")
+    return nil
+end
